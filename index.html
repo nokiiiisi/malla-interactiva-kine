@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Malla Interactiva – Kinesiología UACh</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
+    h1 { text-align: center; }
+    .semestre { margin-bottom: 30px; }
+    .semestre h2 { margin-bottom: 10px; }
+    .ramos { display: flex; gap: 10px; flex-wrap: wrap; }
+    .ramo { background: #fff; border: 2px solid #ccc; padding: 10px;
+            width: 180px; border-radius: 10px; position: relative;
+            cursor: pointer; transition: transform 0.2s ease; }
+    .ramo:hover { transform: scale(1.05); }
+    .aprobado { border-color: green; background: #e0ffe0; }
+    .pendiente { border-color: #ccc; }
+    .tooltip { visibility: hidden; background: black; color: #fff;
+               padding: 5px; border-radius: 5px; position: absolute;
+               z-index: 1; bottom: 110%; left: 50%;
+               transform: translateX(-50%); font-size: 12px;
+               white-space: nowrap; }
+    .ramo:hover .tooltip { visibility: visible; }
+  </style>
+</head>
+<body>
+
+<h1>Malla Interactiva – Kinesiología UACh</h1>
+
+<div class="semestre">
+  <h2>Semestre 1</h2>
+  <div class="ramos">
+    <div class="ramo pendiente">
+      <strong>Anatomía clínica I</strong>
+      <div class="tooltip">Créditos: –</div>
+    </div>
+    <div class="ramo pendiente">
+      <strong>Biología celular e histología</strong>
+      <div class="tooltip">Créditos: –</div>
+    </div>
+    <div class="ramo pendiente">
+      <strong>Química</strong>
+      <div class="tooltip">Créditos: –</div>
+    </div>
+    <div class="ramo pendiente">
+      <strong>Física</strong>
+      <div class="tooltip">Créditos: –</div>
+    </div>
+    <div class="ramo pendiente">
+      <strong>Uso de TICs</strong>
+      <div class="tooltip">Créditos: –</div>
+    </div>
+    <div class="ramo pendiente">
+      <strong>Introducción a la Kinesiología</strong>
+      <div class="tooltip">Créditos: –</div>
+    </div>
+  </div>
+</div>
+
+<div class="semestre">
+  <h2>Semestre 2</h2>
+  <div class="ramos">
+    <div class="ramo pendiente">
+      <strong>Anatomía clínica II</strong>
+      <div class="tooltip">Prerrequisito: Anatomía clínica I</div>
+    </div>
+    <div class="ramo pendiente">
+      <strong>Fisiología humana</strong>
+      <div class="tooltip">Prerrequisito: Biología celular</div>
+    </div>
+    <div class="ramo pendiente">
+      <strong>Bioquímica</strong>
+      <div class="tooltip">Prerrequisito: Química</div>
+    </div>
+    <div class="ramo pendiente">
+      <strong>Inglés I</strong>
+      <div class="tooltip">Créditos: –</div>
+    </div>
+    <div class="ramo pendiente">
+      <strong>Habilidades comunicativas</strong>
+      <div class="tooltip">Créditos: –</div>
+    </div>
+    <div class="ramo pendiente">
+      <strong>Biofísica y biomecánica de tejidos</strong>
+      <div class="tooltip">Prerrequisito: Física</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
