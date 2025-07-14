@@ -77,6 +77,6 @@ h1 {
 }
 
 .ramo.aprobado {
-  background-color: #70e000; /* color verde */
+  background-color: #999696; /* color verde */
   text-decoration: line-through; /* 🔴 ESTO ES LO QUE HACE LA TACHADURA */
 }
