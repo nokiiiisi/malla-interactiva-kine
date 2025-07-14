@@ -1,58 +1,50 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const ramos = document.querySelectorAll(".ramo");
+document.addEventListener('DOMContentLoaded', () => {
+  const ramos = document.querySelectorAll('.ramo');
 
   // Cargar ramos aprobados desde localStorage
-  let aprobados = JSON.parse(localStorage.getItem("aprobados")) || [];
+  let aprobados = JSON.parse(localStorage.getItem('ramosAprobados')) || [];
 
-  // Inicializar ramos según estado
-  ramos.forEach(ramo => {
-    const id = ramo.dataset.id;
-    const requisitos = (ramo.dataset.prerqs || "").split(",").filter(Boolean);
-
-    if (aprobados.includes(id)) {
-      ramo.classList.add("aprobado");
-    } else if (requisitos.length > 0 && !requisitos.every(req => aprobados.includes(req))) {
-      ramo.classList.add("bloqueado");
-    }
-
-    // Tooltip con requisitos
-    if (requisitos.length > 0) {
-      const tooltip = document.createElement("div");
-      tooltip.className = "tooltip";
-      tooltip.innerText = "Requiere: " + requisitos.join(", ");
-      ramo.appendChild(tooltip);
-    }
-  });
-
-  // Manejar clic en ramos
-  ramos.forEach(ramo => {
-    ramo.addEventListener("click", function () {
+  function actualizarEstado() {
+    ramos.forEach(ramo => {
       const id = ramo.dataset.id;
-      const requisitos = (ramo.dataset.prerqs || "").split(",").filter(Boolean);
+      const prerqs = ramo.dataset.prerqs ? ramo.dataset.prerqs.split(',') : [];
 
-      if (ramo.classList.contains("bloqueado")) return;
-
-      if (ramo.classList.contains("aprobado")) {
-        // Desaprobar
-        ramo.classList.remove("aprobado");
-        aprobados = aprobados.filter(a => a !== id);
+      if (aprobados.includes(id)) {
+        ramo.classList.add('aprobado');
+        ramo.classList.remove('bloqueado');
+      } else if (prerqs.length > 0 && !prerqs.every(p => aprobados.includes(p))) {
+        ramo.classList.add('bloqueado');
+        ramo.classList.remove('aprobado');
       } else {
-        // Aprobar
-        ramo.classList.add("aprobado");
+        ramo.classList.remove('bloqueado', 'aprobado');
+      }
+    });
+  }
+
+  // Evento de clic para aprobar/desaprobar ramos
+  ramos.forEach(ramo => {
+    ramo.addEventListener('click', () => {
+      const id = ramo.dataset.id;
+      const prerqs = ramo.dataset.prerqs ? ramo.dataset.prerqs.split(',') : [];
+
+      // No se puede aprobar si los prerrequisitos no están cumplidos
+      if (prerqs.length > 0 && !prerqs.every(p => aprobados.includes(p))) {
+        alert('Debes aprobar primero los ramos requeridos.');
+        return;
+      }
+
+      if (aprobados.includes(id)) {
+        aprobados = aprobados.filter(r => r !== id);
+      } else {
         aprobados.push(id);
       }
 
-      // Guardar estado
-      localStorage.setItem("aprobados", JSON.stringify(aprobados));
-
-      // Actualizar todos los ramos con requisitos
-      actualizarDesbloqueo();
+      // Guardar en localStorage
+      localStorage.setItem('ramosAprobados', JSON.stringify(aprobados));
+      actualizarEstado();
     });
   });
 
-  function actualizarDesbloqueo() {
-    ramos.forEach(ramo => {
-      const id = ramo.dataset.id;
-      const requisitos = (ramo.dataset.prerqs || "").split(",").filter(Boolean);
-      if (!aprobados.includes(id)) {
-        if (requisitos.length > 0 && !requisitos.every(req => aprobados.includes(req))) {
+  // Inicializar
+  actualizarEstado();
+});
