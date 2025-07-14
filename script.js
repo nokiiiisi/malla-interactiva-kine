@@ -28,8 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const prerqs = ramo.dataset.prerqs ? ramo.dataset.prerqs.split(',') : [];
 
       // No se puede aprobar si los prerrequisitos no están cumplidos
-      if (prerqs.length > 0 && !prerqs.every(p => aprobados.includes(p))) {
-        alert('Debes aprobar primero los ramos requeridos.');
+      if (prerqs.length > 0 && !prerqs.some(p => aprobados.includes(p))) {
+        alert('Debes aprobar al menos uno de los ramos requeridos.');
         return;
       }
 
